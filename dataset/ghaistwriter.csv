@@ -48,8 +48,7 @@ def separate_paren_groups(paren_string: str) -> List[str]:
             group = """"
     return results
 
-","# Error in CONTRACTs: Does not check that cnt == 0 at end!
-
+","
 from hypothesis.strategies import just, lists, recursive
 
 def paren_helper():
@@ -81,8 +80,7 @@ def truncate_number(number: float) -> float:
 
     return number - int(number)
 
-","# Grount truth is incorrect! What about nan and inf?
-
+","
 from hypothesis.strategies import floats
 
 number = floats(min_value=0.0, exclude_min=True, allow_nan=False, allow_infinity=False)
@@ -186,8 +184,7 @@ def parse_nested_parens(paren_string: str) -> List[int]:
     
     return [count_depth(s) for s in paren_string.split("" "") if s != """"]
 
-","# Error in CONTRACTs: Does not check that cnt == 0 at end!
-
+","
 from hypothesis.strategies import just, lists, recursive
 from hypothesis import given
 
@@ -880,8 +877,7 @@ def max_element(l: list):
     assert all(type(x) in [int, float] for x in l), ""invalid inputs""
     return max(l)
 
-","# Groundtruth is wrong because CONTRACT does not handle empty lists!
-
+","
 from hypothesis.strategies import lists, integers, floats, one_of
 
 l = lists(one_of(integers(), floats()), min_size=1, max_size=20)
@@ -1464,8 +1460,7 @@ def correct_bracketing(brackets: str):
         if cnt < 0: return False
     return cnt == 0
 
-","# Groundtruth seems wrong because problem only stated ""every opening bracket has a corresponding closing bracket"" and not vice versa. (More like an ambiguity)
-
+","
 from hypothesis.strategies import text
 
 brackets = text(alphabet=""<>"")
@@ -1594,8 +1589,7 @@ def correct_bracketing(brackets: str):
         if cnt < 0: return False
     return cnt == 0
 
-","# Ambiguous purpose statement
-from hypothesis.strategies import text
+","from hypothesis.strategies import text
 
 brackets = text(alphabet=""()"", max_size=20)
 
@@ -2701,8 +2695,7 @@ def closest_integer(value):
             return int(val) - 1
     return rounding(float(value))
 
-","# CONTRACT must check for inf and nan!
-
+","
 from hypothesis.strategies import builds, floats
 
 value = builds(str, floats(allow_infinity=False, allow_nan=False, min_value=-500.0, max_value=500.0))
@@ -3966,8 +3959,7 @@ def is_equal_to_sum_even(n):
 
     return n >= 8 and n % 2 == 0
 
-","# CONTRACT is not exhaustive!
-
+","
 from hypothesis.strategies import integers
 
 n = integers()

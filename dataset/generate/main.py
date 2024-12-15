@@ -41,6 +41,13 @@ for problem_key in os.listdir(os.path.join(base_path, "PropertyEval", "tests")):
     # remove the line that imports limits
     strategy_code = strategy_code.replace("from limits.limits import *\n", "")
 
+    # remove all comment lines before the first non-comment line
+    lines = strategy_code.split("\n")
+    for i, line in enumerate(lines):
+        if not line.strip().startswith("#"):
+            break
+    strategy_code = "\n".join(lines[i:])
+
     # replace all the limits with the actual values
     for key in limits:
         strategy_code = strategy_code.replace(key, str(limits[key]))
