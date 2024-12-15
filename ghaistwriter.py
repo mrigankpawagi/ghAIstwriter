@@ -49,8 +49,18 @@ INSTRUCTION = """Please create a Hypothesis strategy for the following function.
 
 
 def generate_strategy(
-    function_description: str, retry_budget=5
-) -> tuple[SearchStrategy]:
+    function_description: str, 
+    return_raw: bool = False,
+    retry_budget=5
+) -> tuple[SearchStrategy] | str:
+    """
+    Generate a Hypothesis strategy for the given function description.
+    
+    Args:
+        function_description (str): Description of the function for which to generate the strategy. May be natural language, signature and docstring, complete function definition, etc.
+        return_raw (bool): If True, return the raw strategy code instead of the strategy object. The strategies are available in the tuple "strategy" (a check may be needed to convert it to a singleton tuple if needed).
+        retry_budget (int): Internal parameter to control the number of retries in case of failure.
+    """
     prompt = f"{INSTRUCTION}\n{function_description}"
 
     try:
@@ -59,7 +69,8 @@ def generate_strategy(
         
         # Gemini often forgets the last few closing parenthesis so try to fix that
         strategy_code = close_parenthesis(strategy_code)
-        print(strategy_code)
+
+        if return_raw: return strategy_code
 
         env = {}
         exec(strategy_code, env)
