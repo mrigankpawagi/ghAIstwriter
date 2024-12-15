@@ -1,3 +1,3 @@
 # ghAIstwriter
 
-LLM-powered ghostwriter for [Hypothesis][https://hypothesis.readthedocs.io/].
+LLM-powered ghostwriter for [Hypothesis](https://hypothesis.readthedocs.io/).
