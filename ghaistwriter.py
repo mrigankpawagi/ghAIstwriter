@@ -1,15 +1,18 @@
 import os
+import sys
 import google.generativeai as genai
 from dotenv import load_dotenv
 from hypothesis.strategies import SearchStrategy, tuples
 from hypothesis import given, settings
-from utils import close_parenthesis
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GENAI_API_KEY"))
 
 # base path of this script
 base_path = os.path.dirname(os.path.realpath(__file__))
+
+sys.path.append(base_path)
+from utils import close_parenthesis
 
 # load the distilled prompt (Hypothesis reference)
 with open(os.path.join(base_path, "distilled_prompt.txt")) as f:
