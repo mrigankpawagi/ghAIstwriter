@@ -4,6 +4,9 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from hypothesis.strategies import SearchStrategy, tuples
 from hypothesis import given, settings
+import warnings
+
+warnings.filterwarnings("ignore")
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GENAI_API_KEY"))
@@ -20,7 +23,7 @@ with open(os.path.join(base_path, "distilled_prompt.txt")) as f:
 
 # Create the model
 generation_config = {
-    "temperature": 1,
+    "temperature": 0.5,
     "top_p": 0.95,
     "top_k": 64,
     "max_output_tokens": 8192,
@@ -32,22 +35,20 @@ model = genai.GenerativeModel(
     generation_config=generation_config,
 )
 
-chat_session = model.start_chat(
-    history=[
-        {
-            "role": "user",
-            "parts": [
-                reference_prompt,
-            ],
-        },
-        {
-            "role": "model",
-            "parts": [
-                "Thank you for providing this reference. I will keep this in mind while writing Hypothesis strategies.",
-            ],
-        },
-    ]
-)
+fresh_history = [
+    {
+        "role": "user",
+        "parts": [
+            reference_prompt,
+        ],
+    },
+    {
+        "role": "model",
+        "parts": [
+            "Thank you for providing this reference. I will keep this in mind while writing Hypothesis strategies.",
+        ],
+    },
+]
 
 INSTRUCTION = """Please create a Hypothesis strategy for the following function. Return only the code wrapped in ```python and ```.  Do not put constraints on the domain of the input unless specified in the function description. Always end with ```strategy = (<strategy for arg 0>, <strategy for arg 1>, ...)```."""
 
@@ -69,7 +70,7 @@ def generate_strategy(
     """
     if chat_session_obj is None or prompt is None:
         # this is a fresh chat session
-        chat_session_obj = chat_session
+        chat_session_obj = model.start_chat(history=fresh_history)
         prompt = f"{INSTRUCTION}\n{function_description}"
 
     try:
@@ -103,7 +104,8 @@ def generate_strategy(
                 function_description,
                 retry_budget=retry_budget - 1,
                 chat_session_obj=chat_session_obj,
-                prompt=str(e),
+                prompt=str(e)
+                + "\nI got the above error from your previous response. Please fix it by providing a fresh response and explain how you fixed it.",
             )
         else:
             raise e
