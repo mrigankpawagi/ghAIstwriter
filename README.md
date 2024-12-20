@@ -1,5 +1,9 @@
 # ghAIstwriter
 
+<p align=center>
+    <img src="https://github.com/user-attachments/assets/eba2b743-7022-4a6a-a2f8-3cc87fc96880">
+</p>
+
 LLM-powered ghostwriter for [Hypothesis](https://hypothesis.readthedocs.io/). _ghAIstwriter_ can automatically generate strategies for property-based testing using the [Hypothesis](https://hypothesis.readthedocs.io/) library, based on your function descriptions. You can describe your functions through natural language specifications, function signatures and docstrings, or simply your entire function body.
 
 ## Set Up
