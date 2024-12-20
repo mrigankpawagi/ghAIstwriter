@@ -108,6 +108,6 @@ def generate_strategy(
                 + "\nI got the above error from your previous response. Please fix it by providing a fresh response and explain how you fixed it.",
             )
         else:
-            raise e
+            raise ValueError(f"Failed to generate strategy.")
 
     return strategy

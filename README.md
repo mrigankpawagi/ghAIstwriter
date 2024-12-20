@@ -41,6 +41,8 @@ def fuzz_my_function(args):
     my_function(*args)
 ```
 
+The `generate_strategy` function throws a `ValueError` if it is unable to generate a strategy and so it is advisable to wrap it in a `try-except` block. As such, `generate_strategy` attempts automatic repair through iterative feedback to the underlying model, with a maximum of 5 iterations by default (this can be changed by setting the optional `retry_budget` argument). It tries to fix syntax errors caused by missing closing parentheses, and checks for syntax and well-formedness of the returned strategy. 
+
 Note that the function description may be a natural language specification, function signature and docstring, the entire function body, or any combination of these. It is recommended that the arguments of the function are clearly described.
 
-The `generate_strategy` function also accepts an optional `return_raw` argument, which, if set to `True`, makes the function return a string representating Python code that builds up the strategy-tuple. This is available only for advanced usage and will usually not be required. 
+The `generate_strategy` function also accepts an optional `return_raw` argument, which, if set to `True`, makes the function return a string representating Python code that builds up the strategy-tuple. This is available only for advanced usage and will usually not be required. This will bypass some of the checks for validity of the returned strategy and so may not always work as expected.
