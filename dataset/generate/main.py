@@ -8,7 +8,7 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 
 # check if the directory "PropertyEval" exists. If not, create clone the repository.
 if not os.path.exists(os.path.join(base_path, "PropertyEval")):
-    os.system("git clone https://github.com/mrigankpawagi/PropertyEval")
+    os.system("git clone https://github.com/mrigankpawagi/PropertyEval", cwd=base_path)
 
 # read the problems data
 with open(os.path.join(base_path, "PropertyEval", "problems.json")) as f:
