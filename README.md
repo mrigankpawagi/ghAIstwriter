@@ -16,17 +16,18 @@ LLM-powered ghostwriter for [Hypothesis](https://hypothesis.readthedocs.io/). _g
 
 ```bash
 gcloud auth application-default login \
-    # --no-browser \
     --client-id-file=client_secret.json \
     --scopes='https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/generative-language.retriever'
 ```
+
+You can add the `--no-browser` flag to the above command if you are working on a remote environment (for example, Google Colab).
 
 4. Install the required dependencies using `pip install -r requirements.txt`.
 
 ## Usage
 
 ```python
-from ghaiswriter import generate_strategy
+from ghaistwriter import generate_strategy
 
 strategy = generate_strategy("function description")
 ```
