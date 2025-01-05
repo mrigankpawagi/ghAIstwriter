@@ -14,22 +14,13 @@ LLM-powered ghostwriter for [Hypothesis](https://hypothesis.readthedocs.io/). _g
 
 3. You will also have to [set up OAuth](https://ai.google.dev/gemini-api/docs/oauth) on your Google Cloud project to obtain a `client_secret.json` file to be placed in the root directory of this repository. Once you have installed the [gCloud CLI](https://cloud.google.com/sdk/docs/install), run the following command to authenticate yourself.
 
-For authenticating locally, use the following:
-
 ```bash
 gcloud auth application-default login \
     --client-id-file=client_secret.json \
     --scopes='https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/generative-language.retriever'
 ```
 
-For collab, use this:
-
-```bash
-gcloud auth application-default login \
-    --no-browser \
-    --client-id-file=client_secret.json \
-    --scopes='https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/generative-language.retriever'
-```
+You can add the `--no-browser` flag to the above command if you are working on a remote environment (for example, Google Colab).
 
 4. Install the required dependencies using `pip install -r requirements.txt`.
 
